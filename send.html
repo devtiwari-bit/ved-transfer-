@@ -1,266 +1,410 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="referrer" content="strict-origin-when-cross-origin" />
-<title>Send files — Ved Transfer</title>
-<meta name="description" content="Add photos, videos and documents, choose an expiry, and get a secure sharing key to send files anywhere with Ved Transfer." />
-<meta name="author" content="Ved Tools" />
-<meta name="application-name" content="Ved Transfer" />
-<meta name="robots" content="index, follow" />
-<meta name="color-scheme" content="dark" />
-<meta name="theme-color" content="#0a0f1f" />
-<meta name="format-detection" content="telephone=no" />
-<link rel="canonical" href="https://YOUR-DOMAIN/send.html" />
-<link rel="icon" href="favicon.ico" sizes="48x48" />
-<link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
-<link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16" />
-<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-<link rel="manifest" href="site.webmanifest" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Ved Transfer" />
-<meta property="og:title" content="Send files — Ved Transfer" />
-<meta property="og:description" content="Add photos, videos and documents, choose an expiry, and get a secure sharing key to send files anywhere with Ved Transfer." />
-<meta property="og:url" content="https://YOUR-DOMAIN/send.html" />
-<meta property="og:image" content="https://YOUR-DOMAIN/og-image.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Ved Transfer: Send big files. Share one key. Stay in control." />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Send files — Ved Transfer" />
-<meta name="twitter:description" content="Add photos, videos and documents, choose an expiry, and get a secure sharing key to send files anywhere with Ved Transfer." />
-<meta name="twitter:image" content="https://YOUR-DOMAIN/og-image.png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0f1f">
+<meta name="description" content="Send files with Ved Transfer. Upload a file and get a sharing key.">
+<link rel="canonical" href="https://devtiwari-bit.github.io/ved-transfer-/send.html">
+<title>Send Files — Ved Transfer</title>
 <style>
-:root{--bg:#0a0f1f;--bg2:#0e1530;--surface:#131b35;--surface2:#1a2445;--border:#26325c;--text:#eef1fb;--muted:#a3acd0;--accent:#8b6bff;--accent2:#3b82f6;--soft:rgba(139,107,255,.14);--ok:#34d399;--err:#fb7185;--focus:#bcc8ff;--ease:cubic-bezier(.22,1,.36,1);color-scheme:dark}
+:root{--bg:#0a0f1f;--panel:#131b35;--border:#26325c;--text:#eef1fb;--muted:#a3acd0;--purple:#8b6bff;--blue:#3b82f6;--green:#34d399;--red:#fb7185}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-background:radial-gradient(700px 400px at 5% -5%,rgba(109,76,255,.35),transparent 60%),radial-gradient(600px 400px at 100% 10%,rgba(59,130,246,.25),transparent 60%),var(--bg)}
+body{margin:0;min-height:100vh;background:radial-gradient(700px 400px at 5% 0%,#39247780,transparent 60%),radial-gradient(600px 400px at 100% 10%,#1d4ed840,transparent 60%),var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:760px;margin:auto;padding:0 18px}
+header{padding:20px 0}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:10px}
-.wrap{max-width:760px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
-header{padding:16px 0}
-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:1.05rem}
-.brand b{font-weight:800}.brand span span{color:var(--muted)}
-.back{color:var(--muted);text-decoration:none;font-size:.93rem}.back:hover{color:var(--text)}
-h1{font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.1;margin:18px 0 8px;letter-spacing:-.03em}
-.sub{color:var(--muted);margin:0 0 26px}
-h2{font-size:1.05rem;margin:0 0 12px}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:clamp(18px,3vw,26px);margin-bottom:18px}
-.sources{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.src{position:relative;display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:16px;border-radius:18px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:transform .3s var(--ease),border-color .3s var(--ease)}
-.src:hover{transform:translateY(-3px);border-color:var(--accent)}
-.src .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-.src .ic svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.src strong{display:block;font-size:1rem}.src small{color:var(--muted);font-size:.82rem;line-height:1.35}
-.tag{order:3;position:static;font-size:.7rem;font-weight:700;padding:3px 8px;border-radius:999px;background:rgba(251,191,36,.16);color:#fbbf24}
-.drop{margin-top:14px;padding:18px;border:2px dashed var(--border);border-radius:18px;text-align:center;color:var(--muted);font-size:.92rem;transition:border-color .2s,background .2s}
-.drop.over{border-color:var(--accent);background:var(--soft);color:var(--text)}
-input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
-.files{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
-.file{min-width:0;display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:16px;background:var(--bg2);animation:pop .35s var(--ease)}
-@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.ext{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--soft);color:var(--accent);font-weight:800;font-size:.68rem}
-.meta{flex:1;min-width:0}.meta strong{display:block;font-size:.94rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta span{font-size:.8rem;color:var(--muted)}
-.rm{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:1.2rem;line-height:1;cursor:pointer}
-.rm:hover{color:var(--err);border-color:var(--err)}
-.empty{color:var(--muted);text-align:center;padding:10px 0 2px;font-size:.92rem}
-.total{display:flex;justify-content:space-between;margin-top:12px;font-size:.88rem;color:var(--muted)}
-label.f{display:block;font-size:.88rem;font-weight:600;margin:0 0 6px}
-.fld{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font:inherit}
-textarea.fld{resize:vertical;min-height:84px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.group{margin-bottom:14px}
-.hint{font-size:.78rem;color:var(--muted);margin:5px 0 0}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--muted)}
-.chk input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent);flex:none}
-.chk a{color:var(--text)}
-.btn{width:100%;padding:16px;border:0;border-radius:999px;font:inherit;font-weight:700;font-size:1.05rem;color:#fff;cursor:pointer;background:linear-gradient(100deg,var(--accent),var(--accent2));box-shadow:0 12px 30px -12px rgba(109,76,255,.8);transition:transform .3s var(--ease),opacity .2s}
-.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.msg{margin:14px 0 0;padding:13px 15px;border-radius:14px;font-size:.9rem;display:none;border:1px solid}
-.msg.show{display:block}.msg.err{color:var(--err);border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.08)}.msg.info{color:#fbbf24;border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
-.limits{font-size:.8rem;color:var(--muted);text-align:center;margin:14px 0 40px}
-    .made{margin:0;text-align:center;font-size:.92rem;color:var(--muted)}    .made strong{color:var(--text);font-weight:700}    .made .heart{display:inline-block;color:#f472b6;animation:beat 1.8s ease-in-out infinite}    @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
-footer{border-top:1px solid var(--border);padding:22px 0 34px}
-footer ul{list-style:none;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:0 0 14px;padding:0;font-size:.88rem}
-footer ul a{color:var(--muted);text-decoration:none}footer ul a:hover{color:var(--text);text-decoration:underline}
-@media(min-width:620px){.sources{grid-template-columns:repeat(3,1fr)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.brand{font-size:20px;font-weight:800;text-decoration:none}
+.brand span{color:var(--muted)}
+.back{color:var(--muted);text-decoration:none}
+h1{font-size:clamp(32px,7vw,46px);line-height:1.1;letter-spacing:-1.5px;margin:32px 0 10px}
+.sub,.muted{color:var(--muted)}
+.sub{margin-bottom:26px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:22px;margin:16px 0}
+h2{font-size:18px;margin:0 0 15px}
+.sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.source{background:#0e1530;border:1px solid var(--border);border-radius:15px;padding:17px 12px;color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.source:hover{border-color:var(--purple)}
+.source strong,.source small{display:block}
+.source small{color:var(--muted);font-size:12px;margin-top:5px}
+input[type=file]{display:none}
+.drop{margin-top:14px;border:2px dashed var(--border);border-radius:16px;padding:24px 12px;text-align:center;color:var(--muted)}
+.drop.over{border-color:var(--purple);background:#8b6bff18}
+.files{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.file{display:flex;align-items:center;gap:10px;background:#0e1530;border:1px solid var(--border);border-radius:14px;padding:11px}
+.ext{background:#8b6bff22;color:#c4b5fd;padding:10px;border-radius:10px;font-size:12px;font-weight:800}
+.meta{min-width:0;flex:1}
+.meta strong{display:block;overflow-wrap:anywhere;font-size:14px}
+.meta small{color:var(--muted)}
+.remove{border:1px solid var(--border);border-radius:50%;width:34px;height:34px;background:transparent;color:var(--muted);font-size:20px}
+.total{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-top:14px}
+.notice{padding:13px;border-radius:12px;background:#fbbf2414;border:1px solid #fbbf2444;color:#fcd34d;font-size:13px;margin-top:12px}
+.check{display:flex;align-items:flex-start;gap:10px;color:var(--muted);font-size:14px}
+.check input{margin-top:5px;accent-color:var(--purple)}
+button.primary{width:100%;margin-top:18px;padding:15px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--purple),var(--blue));color:white;font-weight:800;font-size:16px;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.message{display:none;padding:14px;border:1px solid var(--border);border-radius:13px;margin-top:14px;overflow-wrap:anywhere}
+.message.show{display:block}
+.message.error{border-color:#fb718577;color:#fda4af;background:#fb718511}
+.message.success{border-color:#34d39977;color:#6ee7b7;background:#34d39911}
+.message.info{color:#c4b5fd;background:#8b6bff11}
+.keys{display:grid;gap:12px;margin-top:14px}
+.key-card{background:#0e1530;border:1px solid var(--border);border-radius:14px;padding:14px}
+.key-value{font-weight:800;letter-spacing:1px;overflow-wrap:anywhere;margin:7px 0}
+.copy{background:#26325c;color:white;border:1px solid #3b4770;border-radius:9px;padding:9px 13px;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:26px 0 36px}
+footer a{margin:0 7px}
+@media(max-width:420px){.panel{padding:16px}.sources{grid-template-columns:1fr}.source{padding:13px}}
 </style>
 </head>
 <body>
-<header><div class="wrap">
-<a class="brand" href="index.html" aria-label="Ved Transfer home">
-<svg width="36" height="36" viewBox="0 0 64 64" role="img" aria-label="Ved Transfer logo"><defs><linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b6bff"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="url(#vg)"/><path d="M16 18L32 46L48 18" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="18" r="5.5" fill="#fff"/><circle cx="48" cy="18" r="3.8" fill="#c4b5fd"/></svg>
-<span><b>Ved</b> <span>Transfer</span></span></a>
+<header>
+<div class="wrap">
+<nav>
+<a class="brand" href="index.html">V <span>Ved Transfer</span></a>
 <a class="back" href="index.html">← Home</a>
-</div></header>
+</nav>
+</div>
+</header>
 
 <main class="wrap">
-<h1>Send files</h1>
-<p class="sub">Choose where your files are, add them, then set an expiry.</p>
+<h1>Send files.</h1>
+<p class="sub">Choose a file, upload it, and get a sharing key to send to someone.</p>
 
-<section class="panel" aria-labelledby="h-src">
-<h2 id="h-src">1. Choose files from</h2>
+<section class="panel">
+<h2>1. Choose files</h2>
 <div class="sources">
-<label class="src" for="inMedia" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-6-6-8 8"/></svg></span><span><strong>Photos &amp; videos</strong><small>Your photo library or gallery</small></span></label>
-<label class="src" for="inAny" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span><strong>Files</strong><small>Phone storage, iCloud, and other file apps</small></span></label>
-<button class="src" type="button" id="gdrive"><span class="tag" id="gtag">Setup needed</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M8 3h8l6 10-4 7H6l-4-7z"/><path d="M8 3l8 14M16 3L6 20"/></svg></span><span><strong>Google Drive</strong><small>Pick files from your Drive</small></span></button>
+<button class="source" id="photos" type="button">
+<strong>📸 Photos & videos</strong>
+<small>Select pictures or videos from your device</small>
+</button>
+<button class="source" id="documents" type="button">
+<strong>📁 Browse files</strong>
+<small>Choose documents or other files</small>
+</button>
 </div>
-<input id="inMedia" type="file" accept="image/*,video/*" multiple />
-<input id="inAny" type="file" multiple />
-<div class="drop" id="drop">On a computer, you can also drag and drop files here.</div>
-</section>
-
-<section class="panel" aria-labelledby="h-files">
-<h2 id="h-files">2. Your files</h2>
-<ul class="files" id="list" aria-live="polite"></ul>
-<p class="empty" id="empty">No files added yet.</p>
-<div class="total"><span id="count">0 files</span><span id="size">0 B</span></div>
-</section>
-
-<section class="panel" aria-labelledby="h-opt">
-<h2 id="h-opt">3. Options</h2>
-<div class="group"><label class="f" for="title">Transfer name or message (optional)</label>
-<textarea class="fld" id="title" maxlength="500" placeholder="e.g. Wedding photos for Mom"></textarea></div>
-<div class="row2">
-<div class="group"><label class="f" for="expiry">Expires after</label>
-<select class="fld" id="expiry"><option value="24">24 hours</option><option value="72" selected>3 days</option><option value="168">7 days</option></select></div>
-<div class="group"><label class="f" for="pw">Password (optional)</label>
-<input class="fld" id="pw" type="password" autocomplete="new-password" maxlength="128" placeholder="Extra protection" /></div>
-</div>
-<p class="hint">Anyone with the sharing key can open the transfer, plus the password if you set one.</p>
+<input id="photoInput" type="file" accept="image/*,video/*" multiple>
+<input id="fileInput" type="file" multiple>
+<div class="drop" id="drop">You can also drag and drop files here on a computer.</div>
+<p class="muted" style="font-size:13px">Select multiple files if needed. Each file will receive its own sharing key.</p>
 </section>
 
 <section class="panel">
-<label class="chk"><input type="checkbox" id="terms" /><span>I accept the <a href="terms.html">Terms of Service</a>, <a href="aup.html">Acceptable Use Policy</a> and <a href="privacy.html">Privacy Policy</a>.</span></label>
-<div style="height:16px"></div>
-<button class="btn" id="send" type="button" disabled>Send files</button>
-<div class="msg" id="msg" role="alert"></div>
+<h2>2. Selected files</h2>
+<ul class="files" id="fileList"></ul>
+<p id="empty" class="muted">No files selected yet.</p>
+<div class="total"><span id="count">0 files</span><span id="totalSize">0 B</span></div>
 </section>
-<p class="limits" id="limits"></p>
+
+<section class="panel">
+<h2>3. Before uploading</h2>
+<div class="notice">
+The current backend supports files up to 90 MB each and a 24-hour sharing-key expiry. Password protection, custom expiry and grouped multi-file transfers are not enabled yet.
+</div>
+<div style="height:16px"></div>
+<label class="check">
+<input id="terms" type="checkbox">
+<span>I agree to the <a href="terms.html">Terms</a>, <a href="aup.html">Acceptable Use Policy</a> and <a href="privacy.html">Privacy Policy</a>.</span>
+</label>
+<button class="primary" id="send" type="button" disabled>Upload files</button>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+<div id="keys" class="keys"></div>
+</section>
 </main>
-<footer><div class="wrap">
-<ul><li><a href="terms.html">Terms</a></li><li><a href="aup.html">Acceptable Use</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="report.html">Report abuse</a></li></ul>
-<p class="made">Made by <strong>Ved Tools</strong> with love <span class="heart" aria-hidden="true">♥</span></p>
-</div></footer>
+
+<footer>
+<p>Made by <strong>Ved Tools</strong> ♥</p>
+<a href="terms.html">Terms</a>
+<a href="privacy.html">Privacy</a>
+<a href="report.html">Report abuse</a>
+</footer>
 
 <script>
-(function(){
 "use strict";
-// ---- Settings (placeholders: the server must enforce its own limits) ----
-var MAX_FILES=50, MAX_FILE=2*1024*1024*1024, MAX_TOTAL=5*1024*1024*1024;
-var API_BASE="";  // set to the Worker URL once the backend exists
-var GOOGLE={CLIENT_ID:"",API_KEY:"",APP_ID:""}; // see Google Drive setup notes
 
-var files=[], $=function(i){return document.getElementById(i)};
-var list=$("list"), msg=$("msg");
+const API_BASE = "https://ved-transfer-api.devtiwari007dt.workers.dev";
+const MAX_FILE_SIZE = 90 * 1024 * 1024;
+const MAX_FILES = 50;
 
-function fmt(n){if(n<1024)return n+" B";var u=["KB","MB","GB","TB"],i=-1;do{n/=1024;i++}while(n>=1024&&i<3);return n.toFixed(n<10?1:0)+" "+u[i]}
-function ext(name){var m=/\.([A-Za-z0-9]{1,5})$/.exec(name);return m?m[1].toUpperCase():"FILE"}
-function show(t,k){msg.textContent=t;msg.className="msg show "+k}
-function clear(){msg.className="msg"}
-function key(f){return f.name+"|"+f.size+"|"+f.lastModified}
+let files = [];
 
-function add(arr){
-  var rejected=[];
-  Array.prototype.forEach.call(arr,function(f){
-    if(files.some(function(x){return key(x)===key(f)}))return;
-    if(f.size===0){rejected.push(f.name+" is empty");return}
-    if(f.size>MAX_FILE){rejected.push(f.name+" is larger than "+fmt(MAX_FILE));return}
-    if(files.length>=MAX_FILES){rejected.push("Limit of "+MAX_FILES+" files reached");return}
-    var total=files.reduce(function(a,x){return a+x.size},0);
-    if(total+f.size>MAX_TOTAL){rejected.push(f.name+" would exceed the "+fmt(MAX_TOTAL)+" transfer limit");return}
-    files.push(f);
-  });
-  render();
-  if(rejected.length)show("Not added: "+rejected.join("; ")+".","err");else clear();
-}
+const $ = id => document.getElementById(id);
+const fileList = $("fileList");
+const message = $("message");
+const keysBox = $("keys");
 
-function render(){
-  list.textContent="";
-  files.forEach(function(f,i){
-    var li=document.createElement("li");li.className="file";
-    var e=document.createElement("div");e.className="ext";e.textContent=ext(f.name);
-    var m=document.createElement("div");m.className="meta";
-    var s=document.createElement("strong");s.textContent=f.name;      // textContent: filenames are never parsed as HTML
-    var p=document.createElement("span");p.textContent=(f.type||"Unknown type")+" · "+fmt(f.size);
-    m.appendChild(s);m.appendChild(p);
-    var b=document.createElement("button");b.className="rm";b.type="button";b.textContent="×";b.setAttribute("aria-label","Remove "+f.name);
-    b.onclick=function(){files.splice(i,1);render();clear()};
-    li.appendChild(e);li.appendChild(m);li.appendChild(b);list.appendChild(li);
-  });
-  $("empty").style.display=files.length?"none":"block";
-  $("count").textContent=files.length+(files.length===1?" file":" files");
-  $("size").textContent=fmt(files.reduce(function(a,x){return a+x.size},0));
-  sync();
-}
-function sync(){$("send").disabled=!(files.length&&$("terms").checked)}
-
-["inMedia","inAny"].forEach(function(id){
-  $(id).addEventListener("change",function(e){add(e.target.files);e.target.value=""});
-});
-document.querySelectorAll("label.src").forEach(function(l){
-  l.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();l.click()}});
-});
-var drop=$("drop");
-["dragenter","dragover"].forEach(function(t){window.addEventListener(t,function(e){e.preventDefault();drop.classList.add("over")})});
-["dragleave","drop"].forEach(function(t){window.addEventListener(t,function(e){e.preventDefault();drop.classList.remove("over")})});
-window.addEventListener("drop",function(e){if(e.dataTransfer&&e.dataTransfer.files.length)add(e.dataTransfer.files)});
-$("terms").addEventListener("change",sync);
-
-// ---- Google Drive (needs your own Google Cloud keys; not tested here) ----
-var gReady=!!(GOOGLE.CLIENT_ID&&GOOGLE.API_KEY);
-if(gReady)$("gtag").style.display="none";
-function load(src){return new Promise(function(ok,no){var s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=function(){no(new Error("Could not load "+src))};document.head.appendChild(s)})}
-$("gdrive").addEventListener("click",function(){
-  if(!gReady){show("Google Drive isn't connected yet. It needs a Google Cloud client ID and API key (see the setup steps). Photos & videos and Files work now.","info");return}
-  clear();
-  Promise.all([load("https://apis.google.com/js/api.js"),load("https://accounts.google.com/gsi/client")]).then(function(){
-    gapi.load("picker",function(){
-      var tc=google.accounts.oauth2.initTokenClient({client_id:GOOGLE.CLIENT_ID,scope:"https://www.googleapis.com/auth/drive.file",
-        callback:function(r){if(r.error){show("Google sign-in failed or was cancelled.","err");return}pick(r.access_token)}});
-      tc.requestAccessToken();
-    });
-  }).catch(function(e){show(e.message,"err")});
-});
-function pick(token){
-  var b=new google.picker.PickerBuilder().addView(google.picker.ViewId.DOCS).addView(google.picker.ViewId.DOCS_IMAGES_AND_VIDEOS)
-    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED).setOAuthToken(token).setDeveloperKey(GOOGLE.API_KEY);
-  if(GOOGLE.APP_ID)b.setAppId(GOOGLE.APP_ID);
-  b.setCallback(function(d){
-    if(d.action!==google.picker.Action.PICKED)return;
-    show("Fetching from Google Drive…","info");
-    Promise.all(d.docs.map(function(doc){
-      if(doc.mimeType.indexOf("application/vnd.google-apps")===0)return Promise.resolve({skip:doc.name});
-      return fetch("https://www.googleapis.com/drive/v3/files/"+encodeURIComponent(doc.id)+"?alt=media",{headers:{Authorization:"Bearer "+token}})
-        .then(function(r){if(!r.ok)throw new Error(doc.name);return r.blob()})
-        .then(function(bl){return new File([bl],doc.name,{type:doc.mimeType,lastModified:Date.now()})})
-        .catch(function(){return {skip:doc.name}});
-    })).then(function(res){
-      var ok=res.filter(function(x){return x instanceof File}),bad=res.filter(function(x){return x.skip}).map(function(x){return x.skip});
-      add(ok);
-      if(bad.length)show("Couldn't import: "+bad.join(", ")+" (Google Docs/Sheets files must be exported first).","err");
-    });
-  }).build().setVisible(true);
-}
-
-// ---- Send ----
-$("send").addEventListener("click",function(){
-  clear();
-  if(!files.length){show("Add at least one file.","err");return}
-  if(!$("terms").checked){show("Please accept the terms to continue.","err");return}
-  if(!API_BASE){
-    show("Sending isn't connected yet. The upload server and storage haven't been built, so nothing was uploaded and your files stayed on your device.","info");return;
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + " B";
+  const units = ["KB", "MB", "GB"];
+  let size = bytes / 1024;
+  let index = 0;
+  while (size >= 1024 && index < units.length - 1) {
+    size /= 1024;
+    index++;
   }
-  // Backend call goes here once the Worker API exists (create transfer -> direct-to-R2 uploads -> sharing key).
+  return size.toFixed(size < 10 ? 1 : 0) + " " + units[index];
+}
+
+function showMessage(text, type) {
+  message.textContent = text;
+  message.className = "message show " + type;
+}
+
+function clearMessage() {
+  message.textContent = "";
+  message.className = "message";
+}
+
+function fileId(file) {
+  return file.name + "|" + file.size + "|" + file.lastModified;
+}
+
+function addFiles(selected) {
+  const errors = [];
+
+  for (const file of Array.from(selected)) {
+    if (files.some(existing => fileId(existing) === fileId(file))) continue;
+
+    if (file.size === 0) {
+      errors.push(file.name + " is empty");
+      continue;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      errors.push(file.name + " exceeds the 90 MB limit");
+      continue;
+    }
+
+    if (files.length >= MAX_FILES) {
+      errors.push("Maximum " + MAX_FILES + " files allowed");
+      break;
+    }
+
+    files.push(file);
+  }
+
+  renderFiles();
+
+  if (errors.length) showMessage(errors.join(". "), "error");
+  else clearMessage();
+}
+
+function renderFiles() {
+  fileList.textContent = "";
+
+  files.forEach((file, index) => {
+    const item = document.createElement("li");
+    item.className = "file";
+
+    const ext = document.createElement("div");
+    ext.className = "ext";
+    ext.textContent = (file.name.split(".").pop() || "FILE").slice(0, 6).toUpperCase();
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const name = document.createElement("strong");
+    name.textContent = file.name;
+
+    const details = document.createElement("small");
+    details.textContent = formatSize(file.size);
+
+    meta.append(name, details);
+
+    const remove = document.createElement("button");
+    remove.className = "remove";
+    remove.type = "button";
+    remove.textContent = "×";
+    remove.setAttribute("aria-label", "Remove " + file.name);
+    remove.addEventListener("click", () => {
+      files.splice(index, 1);
+      renderFiles();
+      clearMessage();
+    });
+
+    item.append(ext, meta, remove);
+    fileList.appendChild(item);
+  });
+
+  $("empty").style.display = files.length ? "none" : "block";
+  $("count").textContent = files.length + (files.length === 1 ? " file" : " files");
+  $("totalSize").textContent = formatSize(files.reduce((sum, file) => sum + file.size, 0));
+  $("send").disabled = !files.length || !$("terms").checked;
+}
+
+$("photos").addEventListener("click", () => $("photoInput").click());
+$("documents").addEventListener("click", () => $("fileInput").click());
+
+$("photoInput").addEventListener("change", event => {
+  addFiles(event.target.files);
+  event.target.value = "";
 });
 
-$("limits").textContent="Current limits: up to "+MAX_FILES+" files, "+fmt(MAX_FILE)+" per file, "+fmt(MAX_TOTAL)+" per transfer. Final limits are enforced by the server.";
-render();
-})();
+$("fileInput").addEventListener("change", event => {
+  addFiles(event.target.files);
+  event.target.value = "";
+});
+
+$("terms").addEventListener("change", renderFiles);
+
+const drop = $("drop");
+
+["dragenter", "dragover"].forEach(type => {
+  drop.addEventListener(type, event => {
+    event.preventDefault();
+    drop.classList.add("over");
+  });
+});
+
+["dragleave", "drop"].forEach(type => {
+  drop.addEventListener(type, event => {
+    event.preventDefault();
+    drop.classList.remove("over");
+  });
+});
+
+drop.addEventListener("drop", event => {
+  if (event.dataTransfer) addFiles(event.dataTransfer.files);
+});
+
+async function uploadFile(file) {
+  const formData = new FormData();
+  formData.append("file", file, file.name);
+
+  const response = await fetch(API_BASE + "/api/send", {
+    method: "POST",
+    body: formData
+  });
+
+  const raw = await response.text();
+  let data;
+
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    throw new Error("The server returned an unexpected response. Please check your Worker.");
+  }
+
+  if (!response.ok || data.success === false) {
+    throw new Error(data.error || data.message || ("Upload failed: HTTP " + response.status));
+  }
+
+  const key = data.key || data.transferKey || data.transfer_key || data.code;
+
+  if (!key) {
+    throw new Error("The server response did not contain a sharing key. Check the /api/send response in your Worker.");
+  }
+
+  return { key, fileName: file.name };
+}
+
+function addKeyCard(result) {
+  const card = document.createElement("div");
+  card.className = "key-card";
+
+  const name = document.createElement("div");
+  name.textContent = result.fileName;
+
+  const key = document.createElement("div");
+  key.className = "key-value";
+  key.textContent = result.key;
+
+  const copy = document.createElement("button");
+  copy.type = "button";
+  copy.className = "copy";
+  copy.textContent = "Copy key";
+
+  copy.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(result.key);
+      copy.textContent = "Copied!";
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(key);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      copy.textContent = "Select and copy";
+    }
+  });
+
+  card.append(name, key, copy);
+  keysBox.appendChild(card);
+}
+
+$("send").addEventListener("click", async () => {
+  clearMessage();
+  keysBox.textContent = "";
+
+  if (!files.length) {
+    showMessage("Please select at least one file.", "error");
+    return;
+  }
+
+  if (!$("terms").checked) {
+    showMessage("Please accept the terms first.", "error");
+    return;
+  }
+
+  const selected = files.slice();
+  const sendButton = $("send");
+  sendButton.disabled = true;
+
+  let completed = 0;
+  const results = [];
+  const errors = [];
+
+  try {
+    for (const file of selected) {
+      showMessage(
+        "Uploading " + (completed + 1) + " of " + selected.length +
+        ": " + file.name + "… Please keep this page open.",
+        "info"
+      );
+
+      try {
+        const result = await uploadFile(file);
+        results.push(result);
+        addKeyCard(result);
+      } catch (error) {
+        errors.push(file.name + ": " + error.message);
+      }
+
+      completed++;
+    }
+
+    if (results.length) {
+      showMessage(
+        results.length + " file(s) uploaded. Copy and share the key for each file." +
+        (errors.length ? " Some uploads failed; see the message below." : ""),
+        errors.length ? "info" : "success"
+      );
+    }
+
+    if (errors.length) {
+      const errorList = document.createElement("p");
+      errorList.textContent = "Failed uploads: " + errors.join(" | ");
+      message.appendChild(errorList);
+      message.className = "message show error";
+    }
+
+    if (!results.length && !errors.length) {
+      showMessage("No files were uploaded.", "error");
+    }
+
+    if (results.length) {
+      files = files.filter(file => !results.some(result => result.fileName === file.name));
+      renderFiles();
+    }
+  } finally {
+    sendButton.disabled = !files.length || !$("terms").checked;
+    sendButton.textContent = files.length ? "Retry remaining files" : "Upload files";
+  }
+});
+
+renderFiles();
 </script>
 </body>
 </html>
